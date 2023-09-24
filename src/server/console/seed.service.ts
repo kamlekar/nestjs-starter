@@ -1,5 +1,5 @@
 import { Inject } from '@nestjs/common';
-import { Console, Command, createSpinner } from 'nestjs-console';
+import { Console, Command } from 'nestjs-console';
 import { ThingsService } from '../app/things/things.service';
 
 @Console()
@@ -11,13 +11,7 @@ export class SeedService {
     description: 'Seed DB',
   })
   async seed(): Promise<void> {
-    const spin = createSpinner();
-
-    spin.start('Seeding the DB');
-
     await this.seedThings();
-
-    spin.succeed('Seeding done');
   }
 
   async seedThings() {
