@@ -5,15 +5,21 @@ import { GoogleOauthModule } from './google/google-oauth.module';
 import { JwtAuthModule } from './jwt/jwt-auth.module';
 import { AuthController } from './auth.controller';
 import { CognitoOauthModule } from './cognito/cognito-oauth.module';
+import { JwtModule } from '@nestjs/jwt';
+import { AuthService } from './auth.service';
+import { AccessTokenStrategy } from './strategies/accessToken.strategy';
+import { RefreshTokenStrategy } from './strategies/refreshToken.strategy';
 
 @Module({
-  controllers: [AuthController],
   imports: [
     UsersModule,
     PassportModule,
     GoogleOauthModule,
     JwtAuthModule,
     CognitoOauthModule,
+    JwtModule.register({}),
   ],
+  controllers: [AuthController],
+  providers: [AuthService, AccessTokenStrategy, RefreshTokenStrategy],  
 })
 export class AuthModule {}

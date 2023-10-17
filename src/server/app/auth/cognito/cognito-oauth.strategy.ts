@@ -77,6 +77,8 @@ export class CognitoOauthStrategy extends PassportStrategy(
         providerId,
         name: userinfo.name,
         username: userinfo.email,
+        refreshToken: '',
+        password: ''
       });
     }
 

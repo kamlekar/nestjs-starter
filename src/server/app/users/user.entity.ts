@@ -27,11 +27,19 @@ export class User {
 
   @Field()
   @Column({ nullable: false })
+  refreshToken: string;
+
+  @Field()
+  @Column({ nullable: false })
   username: string;
 
   @Field()
   @Column({ nullable: false })
   name?: string;
+
+  @Field()
+  @Column({ nullable: false })
+  password?: string;
 
   @Field((_type) => [Order], { nullable: 'items' })
   @OneToMany((_type) => Order, (order) => order.user)

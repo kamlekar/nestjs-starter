@@ -13,13 +13,13 @@ export class UsersService {
     private usersRepository: Repository<User>,
   ) {}
 
-  create(user: CreateUserDto) {
-    return this.usersRepository.save(user);
+  async create(user: CreateUserDto): Promise<User> {
+    return await this.usersRepository.save(user);
   }
 
   async update(
     id: string,
-    updateUserDto: UpdateUserDto,
+    updateUserDto: Partial<UpdateUserDto>,
   ) {
     const chosenUser = await this.findOne({where: {id: Number(id)}});
 
@@ -34,6 +34,10 @@ export class UsersService {
 
   findOne(params: FindOneOptions<User> = {}) {
     return this.usersRepository.findOne(params);
+  }
+
+  async findByUsername(username: string): Promise<User> {
+    return this.usersRepository.findOne({ where: {username }});
   }
 
   findAll(params: FindManyOptions<User> = {}) {
