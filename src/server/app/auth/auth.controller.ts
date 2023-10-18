@@ -11,8 +11,9 @@ export class AuthController {
   }
 
   @Get("/login/google")
+  @UseGuards(GoogleAuthGuard)
   async loginWithGoogle() {
-    //
+   return "Google oAuth"
   }
 
   @Get('/google/redirect')
