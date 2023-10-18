@@ -23,7 +23,7 @@ async function bootstrap() {
     // store: new pg({pool: pgPool, tableName: "session"}),
     resave: false,
     cookie: {
-      maxAge: 60000
+      maxAge: 180000
     }
   }))
   app.use(passport.initialize())
