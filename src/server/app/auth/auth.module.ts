@@ -5,6 +5,7 @@ import { GoogleOauthModule } from './google/google-oauth.module';
 import { JwtAuthModule } from './jwt/jwt-auth.module';
 import { AuthController } from './auth.controller';
 import { CognitoOauthModule } from './cognito/cognito-oauth.module';
+import { AuthService } from './auth.service';
 
 @Module({
   controllers: [AuthController],
@@ -15,5 +16,6 @@ import { CognitoOauthModule } from './cognito/cognito-oauth.module';
     JwtAuthModule,
     CognitoOauthModule,
   ],
+  providers: [AuthService]
 })
 export class AuthModule {}

@@ -1,30 +1,27 @@
+import { Inject, Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Profile, Strategy } from 'passport-google-oauth20';
-import { Injectable } from '@nestjs/common';
+import { AuthService } from '../auth.service';
 import { ConfigService } from '@nestjs/config';
 import { UsersService } from '../../users/users.service';
 
 @Injectable()
-export class GoogleOauthStrategy extends PassportStrategy(Strategy, 'google') {
+export class GoogleStrategy extends PassportStrategy(Strategy) {
   constructor(
-    configService: ConfigService,
-    private readonly usersService: UsersService,
+    @Inject('AUTH_SERVICE') private readonly authService: AuthService,
+    private readonly configService: ConfigService,
+    private readonly usersService: UsersService
   ) {
     super({
-      clientID: configService.get<string>('OAUTH_GOOGLE_ID'),
-      clientSecret: configService.get<string>('OAUTH_GOOGLE_SECRET'),
-      callbackURL: configService.get<string>('OAUTH_GOOGLE_REDIRECT_URL'),
-      scope: ['email', 'profile'],
+      clientID: configService.get('OAUTH_GOOGLE_ID'),
+      clientSecret: configService.get('OAUTH_GOOGLE_SECRET'),
+      callbackURL: configService.get('OAUTH_GOOGLE_REDIRECT_URL'),
+      scope: ['profile', 'email'],
     });
   }
 
-  async validate(
-    _accessToken: string,
-    _refreshToken: string,
-    profile: Profile,
-  ) {
+  async validate(accessToken: string, refreshToken: string, profile: Profile) {
     const { id, name, emails } = profile;
-
     let user = await this.usersService.findOne({
       where: { provider: 'google', providerId: id },
     });
@@ -36,7 +33,6 @@ export class GoogleOauthStrategy extends PassportStrategy(Strategy, 'google') {
         username: emails[0].value,
       });
     }
-
     return user;
   }
 }
