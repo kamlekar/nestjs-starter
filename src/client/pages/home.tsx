@@ -1,8 +1,13 @@
 import React from 'react';
 import { NextPage } from 'next';
 
+// import useSession from "../hooks/use-session"
+
 const Home: NextPage<{ data: string }> = (props) => {
   const { data } = props;
+  // const {isAuthenticated} = useSession() 
+  // console.log({isAuthenticated})
+
 
   return (
     <div>
