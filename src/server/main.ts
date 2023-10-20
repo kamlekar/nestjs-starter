@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
-import * as cookieParser from 'cookie-parser';
-import * as session from "express-session"
-import * as passport from "passport"
+import cookieParser from 'cookie-parser';
+import expressSession from "express-session"
+import passport from "passport"
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 // const pg = require("connect-pg-simple")
 import { ServerModule } from 'src/server/server.module';
@@ -17,7 +17,7 @@ import { ServerModule } from 'src/server/server.module';
 async function bootstrap() {
   const app = await NestFactory.create(ServerModule);
   app.use(cookieParser());
-  app.use(session({
+  app.use(expressSession({
     secret: process.env.JWT_SECRET,
     saveUninitialized: false,
     // store: new pg({pool: pgPool, tableName: "session"}),
