@@ -30,6 +30,7 @@ import { PassportModule } from '@nestjs/passport';
         type: 'postgres',
         url: configService.get<string>('DATABASE_URL'),
         autoLoadEntities: true,
+        synchronize: true,
         ssl:
           configService.get<string>('NODE_ENV') === 'production'
             ? { rejectUnauthorized: false }
