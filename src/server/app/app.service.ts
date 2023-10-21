@@ -1,8 +1,18 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Req } from '@nestjs/common';
+import { Request as ExpressRequest } from 'express';
 
 @Injectable()
 export class AppService {
-  getHello(): string {
-    return 'Hello from NestJS!';
+  getHello(@Req() req: ExpressRequest): string {
+    return `
+      <div>
+        <h1>Hello from NestJS!</h1>
+      </div>
+      ${!req.isAuthenticated() ? `
+      <aside>
+        <a href="/auth/login">Login</a>
+      </aside>
+      `: ''}
+    `;
   }
 }
