@@ -1,9 +1,10 @@
-import { Controller, Get, Res, Req, UseGuards } from '@nestjs/common';
+import { Controller, Get, Res, Req, UseGuards, UseFilters } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { parse } from 'url';
 import { JwtAuthGuard } from '../app/auth/jwt/jwt-auth.guard';
 
 import { ViewService } from './view.service';
+import { ViewAuthFilter } from '../app/auth/jwt/jwt-auth.filter';
 
 @Controller('/')
 export class ViewController {
@@ -32,13 +33,15 @@ export class ViewController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @UseFilters(ViewAuthFilter)
   @Get('profile')
   public async showProfile(@Req() req: Request, @Res() res: Response) {
     await this.handler(req, res);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get('orders')
+  @UseGuards(JwtAuthGuard)
+  @UseFilters(ViewAuthFilter)
   public async indexOrders(@Req() req: Request, @Res() res: Response) {
     await this.handler(req, res);
   }
