@@ -13,6 +13,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { ThingsModule } from './things/things.module';
 import { OrdersModule } from './orders/orders.module';
+import { PassportModule } from '@nestjs/passport';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { OrdersModule } from './orders/orders.module';
       }),
       inject: [ConfigService],
     }),
+    PassportModule.register({session: true}),
     ConsoleModule,
     AuthModule,
     UsersModule,
