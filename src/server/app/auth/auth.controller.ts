@@ -8,6 +8,14 @@ export class AuthController {
     return res.redirect('/auth/cognito');
   }
 
+  @Get('/login')
+  async loginPage() {
+    return `
+      <div><a href='/auth/login/google'>Login</a></div>
+      <div><a href='/auth/login/google'>Signup</a></div>
+    `;
+  }
+
   @Get("/login/google")
   @UseGuards(GoogleAuthGuard)
   async loginWithGoogle() {
