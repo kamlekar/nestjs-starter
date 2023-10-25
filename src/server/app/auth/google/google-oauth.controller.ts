@@ -35,6 +35,6 @@ export class GoogleOauthController {
       sameSite: 'lax',
     });
     await this.authService.updateRefreshToken(user.id.toString(), refreshToken);
-    return res.redirect('/profile');
+    return res.redirect((req.query?.state as string) ?? '/');
   }
 }
