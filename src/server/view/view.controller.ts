@@ -23,7 +23,7 @@ export class ViewController {
 
     await this.viewService
       .getNextServer()
-      .render(
+      ?.render(
         req,
         res,
         parsedUrl.pathname,

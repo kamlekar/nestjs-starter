@@ -13,6 +13,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { ThingsModule } from './things/things.module';
 import { OrdersModule } from './orders/orders.module';
+import { PassportModule } from '@nestjs/passport';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { OrdersModule } from './orders/orders.module';
         type: 'postgres',
         url: configService.get<string>('DATABASE_URL'),
         autoLoadEntities: true,
+        synchronize: true,
         ssl:
           configService.get<string>('NODE_ENV') === 'production'
             ? { rejectUnauthorized: false }
@@ -36,6 +38,7 @@ import { OrdersModule } from './orders/orders.module';
       }),
       inject: [ConfigService],
     }),
+    PassportModule.register({session: true}),
     ConsoleModule,
     AuthModule,
     UsersModule,

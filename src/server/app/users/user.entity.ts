@@ -33,6 +33,10 @@ export class User {
   @Column({ nullable: false })
   name?: string;
 
+  @Field()
+  @Column({ nullable: true })
+  password: string;
+
   @Field((_type) => [Order], { nullable: 'items' })
   @OneToMany((_type) => Order, (order) => order.user)
   orders?: Order[];
