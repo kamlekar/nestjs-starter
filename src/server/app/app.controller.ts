@@ -1,7 +1,8 @@
-import { Controller, Request, Get, UseGuards } from '@nestjs/common';
+import { Controller, Req, Get, UseGuards, UseFilters } from '@nestjs/common';
 
 import { AppService } from './app.service';
-import { JwtAuthGuard } from './auth/jwt/jwt-auth.guard';
+import { RedirectAuthFilter } from './auth/filter/redirect-auth.filter';
+import { CheckAuthGuard } from './auth/guard/check-auth.guard';
 
 @Controller()
 export class AppController {
@@ -12,9 +13,10 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @UseGuards(JwtAuthGuard)
-  @Get('private')
-  getPrivate(@Request() req) {
-    return req.user;
+  @UseGuards(CheckAuthGuard)
+  @UseFilters(RedirectAuthFilter)
+  @Get('/private')
+  getPrivate(@Req() req) {
+    return req?.user
   }
 }

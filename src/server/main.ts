@@ -18,12 +18,13 @@ async function bootstrap() {
   const app = await NestFactory.create(ServerModule);
   app.use(cookieParser());
   app.use(session({
-    secret: process.env.JWT_SECRET,
+    secret: process.env.SESSION_SECRET,
     saveUninitialized: false,
     // store: new pg({pool: pgPool, tableName: "session"}),
+    rolling: true,
     resave: false,
     cookie: {
-      maxAge: 180000
+      maxAge: 60000
     }
   }))
   app.use(passport.initialize())

@@ -1,5 +1,7 @@
-import { Controller, Get, Res, UseGuards } from '@nestjs/common';
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
 import { GoogleAuthGuard } from './guard/google.guard';
+import {Request, Response} from "express"
 
 @Controller('auth')
 export class AuthController {
@@ -16,7 +18,8 @@ export class AuthController {
 
   @Get('/google/redirect')
   @UseGuards(GoogleAuthGuard)
-  async googleAuthRedirect() {
-    return { msg: 'Success' };
+  async googleAuthRedirect(@Req() req: Request, @Res() res: Response) {
+    // @ts-ignore
+    return res.redirect(req.query?.state ?? "/")
   }
 }
