@@ -36,6 +36,8 @@ https://nestjs-starter-staging.herokuapp.com/
 
 ### Dev
 
+- For windows and WSL, check `docs/windows-and-wsl.md`
+
 ```sh
 cp .env.example .env
 docker-compose up
