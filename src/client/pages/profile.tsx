@@ -1,10 +1,9 @@
 import React from 'react';
 import { NextPage } from 'next';
-import { Request } from 'express';
 
 export async function getServerSideProps({ req }) {
   return {
-    props: { user: (req as Request).user },
+    props: { user: JSON.parse(JSON.stringify(req.user)) },
   };
 }
 

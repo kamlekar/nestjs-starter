@@ -6,6 +6,7 @@ type User {
   id: Float!
   provider: String!
   providerId: String!
+  refreshToken: String!
   username: String!
   name: String!
   orders: [Order]!

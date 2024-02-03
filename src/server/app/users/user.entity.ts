@@ -26,6 +26,10 @@ export class User {
   providerId: string;
 
   @Field()
+  @Column({ nullable: true })
+  refreshToken: string;
+
+  @Field()
   @Column({ nullable: false })
   username: string;
 

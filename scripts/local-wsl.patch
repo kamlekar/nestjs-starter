@@ -1,0 +1,32 @@
+diff --git forkSrcPrefix/docker-compose.yml forkDstPrefix/docker-compose.yml
+index a79e30bd161707f9bc9fde6c9e1358c8b54dbaac..45712b703b6c5e68eb9b4cab05f1e6fb434d76cd 100644
+--- forkSrcPrefix/docker-compose.yml
++++ forkDstPrefix/docker-compose.yml
+@@ -4,9 +4,9 @@ services:
+   web:
+     build:
+       context: .
+-    image: ${NESTJS_STARTER_IMAGE:-nestjs-starter:local}
+-    entrypoint: scripts/web-docker-entrypoint.sh
+-    command: yarn start:dev
++    # image: ${NESTJS_STARTER_IMAGE:-nestjs-starter:local}
++    # entrypoint: scripts/web-docker-entrypoint.sh
++    command: tail -f /dev/null
+     ports:
+       - "3000:3000"
+     depends_on:
+diff --git forkSrcPrefix/Dockerfile forkDstPrefix/Dockerfile
+index 8fa8c07c27e3e714c06cedb7f85ee2d522f6d6dc..25cbff45499ca20f7bf06ac40e376c12fab672fe 100644
+--- forkSrcPrefix/Dockerfile
++++ forkDstPrefix/Dockerfile
+@@ -2,4 +2,8 @@ FROM node:18.17.0-alpine
+ 
+ WORKDIR /app
+ 
+-ENTRYPOINT ["scripts/web-docker-entrypoint.sh"]
++# ENTRYPOINT ["scripts/web-docker-entrypoint.sh"]
++
++# COPY . /app
++
++# RUN ["tail", "-f", "/dev/null"]
+\ No newline at end of file
