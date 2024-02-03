@@ -7,7 +7,7 @@ export class GoogleOauthGuard extends AuthGuard('google') {
   async canActivate(context: ExecutionContext) {
     const activate = (await super.canActivate(context)) as boolean;
     const request = context.switchToHttp().getRequest<ExpressRequest>();
-    // @ts-ignore
+    // @ts-expect-error: redirectTo should work
     request.query.state = request.session.redirectTo;
     await super.logIn(request);
     return activate;

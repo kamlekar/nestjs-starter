@@ -8,11 +8,15 @@ export class AppService {
       <div>
         <h1>Hello from NestJS!</h1>
       </div>
-      ${!req.isAuthenticated() ? `
+      ${
+        !req.isAuthenticated()
+          ? `
       <aside>
         <a href="/auth/login">Login</a>
       </aside>
-      `: ''}
+      `
+          : ''
+      }
     `;
   }
 }

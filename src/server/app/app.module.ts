@@ -38,7 +38,7 @@ import { PassportModule } from '@nestjs/passport';
       }),
       inject: [ConfigService],
     }),
-    PassportModule.register({session: true}),
+    PassportModule.register({ session: true }),
     ConsoleModule,
     AuthModule,
     UsersModule,

@@ -47,6 +47,16 @@ export class ViewController {
     await this.handler(req, res);
   }
 
+  @UseGuards(JwtAuthGuard)
+  @UseFilters(RedirectAuthFilter)
+  @Get('admin')
+  public async showAdmin(@Req() req: Request, @Res() res: Response) {
+    const parsedUrl = parse(req.url, true);
+    await this.viewService
+      .getNextServer()
+      .render(req, res, parsedUrl.pathname, parsedUrl.query);
+  }
+
   @Get('orders')
   @UseGuards(JwtAuthGuard)
   @UseFilters(ViewAuthFilter)
